@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Запросы на Github{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        {{ include('language-menu.html.twig') }}
+        <div class="wrapper-inner">
+            <h1>Corpsee</h1>
+            <p>Меня зовут Дмитрий (AKA Corpsee), я вэб-разработчик (PHP). Участвую в Open Source проектах, иногда рисую.</p>
+            <p>Контакты, по которым со мной можно связаться:</p>
+            <!-- Icons by Ruslan Stepanov (http://hands-creative.com/icon/). License: CC BY 3.0 (http://creativecommons.org/licenses/by/3.0/)-->
+            <div class="social-links">
+                <a href="//github.com/corpsee" title="GitHub">
+                    <img src="/app/social/github.png" width="48" height="48"/>
+                </a>
+                <a href="//habrahabr.ru/users/corpsee/" title="Habrahabr">
+                    <img src="/app/social/habra.png" width="48" height="48"/>
+                </a>
+                <a href="//lastfm.ru/user/C0rpsee" title="Last.fm">
+                    <img src="/app/social/lastfm.png" width="48" height="48"/>
+                </a>
+                <a href="//vk.com/corpsee" title="VKontakte">
+                    <img src="/app/social/vk.png" width="48" height="48"/>
+                </a>
+                <a href="//twitter.com/poisoncorpsee" title="Twitter">
+                    <img src="/app/social/twitter.png" width="48" height="48"/>
+                </a>
+                <a href="mailto:poisoncorpsee@gmail.com" title="Email: poisoncorpsee@gmail.com">
+                    <img src="/app/social/email.png" width="48" height="48"/>
+                </a>
+            </div>
+
+            {% if projects %}
+                <h2>Open source проекты</h2>
+
+                <table class="projects">
+                    {% for project in projects %}
+                        <tr>
+                            <td width="20%">
+                                <a href="{{ project.link }}" title="{{ project.title }}">{{ project.title }}</a>
+                            </td>
+                            <td>
+                                {{ project.description }} ({{ project.role }})
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if pictures %}
+                <h2>Последняя графика</h2>
+
+                {% set i = 0 %}
+                {% for picture in pictures %}
+                    {% if i == 4 %}
+                        {% set i = 1 %}
+                    {% else %}
+                        {% set i = i + 1 %}
+                    {% endif %}
+
+                    {% if i == 1 %}
+                        <div class="img-str">
+                            <div class="img-box first">
+                                <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                                    class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
+                                    src="/images/picture_gray/{{ picture.image }}-gray.jpg"
+                                    id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                    alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
+                            </div>
+                    {% elseif i == 4 %}
+                            <div class="img-box last">
+                                <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                                    class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
+                                    src="/images/picture_gray/{{ picture.image }}-gray.jpg"
+                                    id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                    alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
+                            </div>
+                        </div>
+                    {% else %}
+                            <div class="img-box">
+                                <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                                    class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
+                                    src="/images/picture_gray/{{ picture.image }}-gray.jpg"
+                                    id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                    alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
+                            </div>
+                    {% endif %}
+                {% endfor %}
+
+                {% if i != 4 %}
+                        </div>
+                {% endif %}
+
+                <div class="comeback">
+                    <a href="{{ path('app_pictures', {_locale: locale}) }}" title="Посмотреть всю графику">Посмотреть всю графику</a>
+                </div>
+            {% endif %}
+
+            {% if pullRequests %}
+                <h2>Последние запросы на Github</h2>
+
+                <table class="pull-requests">
+                    {% for pullRequest in pullRequests %}
+                        <tr>
+                            <td>
+                                <nobr>
+                                    {{ pullRequest.createdAt | date("Y-m-d") }}
+                                </nobr>
+                            </td>
+                            <td>
+                                <div class="status status-{{ pullRequest.status }}">{{ pullRequest.status }}</div>
+                            </td>
+                            <td width="25%">
+                                {{ pullRequest.repository }}
+                            </td>
+                            <td>
+                                <a href="https://github.com/{{ pullRequest.repository }}/pull/{{ pullRequest.platformId }}">{{ pullRequest.title }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <div class="comeback">
+                    <a href="{{ path('app_pull_requests', {_locale: locale}) }}" title="Посмотреть все запросы">Посмотреть все запросы</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {{ include('footer.html.twig') }}
+
+    <?= $scripts; ?>
+{% endblock %}

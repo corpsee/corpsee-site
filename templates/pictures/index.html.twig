@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Графика по датам{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        {{ include('language-menu.html.twig') }}
+        <div class="wrapper-inner">
+
+            <div class="sort-menu">
+                Упорядочить галерею: &nbsp;&nbsp;
+                по дате&nbsp;&nbsp; | &nbsp;&nbsp;
+                <a href="{{ path('app_pictures_tags', {_locale: locale}) }}">по меткам</a>
+            </div>
+
+            <h1>Графика по датам</h1>
+
+            {% if tags %}
+                <div class="tag-menu">
+                    {% for tag in tags %}
+                        {% set tagPictures = tag.getPictures() %}
+                        {% if tagPictures | length == 0 %}
+                            <span class="tag0">{{ tag.name }}</span>
+                        {% elseif tagPictures | length > 10 %}
+                            <a class="tag6" href="{{ path('app_pictures_tag', {_locale: locale, tag: tag.name}) }}">{{ tag.name }}</a>
+                        {% else %}
+                            <a class="{{ tagClasses[tagPictures | length] }}" href="{{ path('app_pictures_tag', {_locale: locale, tag: tag.name}) }}">{{ tag.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if pictures %}
+                {% for pictureYear, picturesArray in pictures %}
+
+                    <div class="charter">
+                        <h2>{{ pictureYear }}</h2>
+                    </div>
+
+                    {% set i = 0 %}
+                    {% for picture in picturesArray %}
+                        {% if i == 4 %}
+                            {% set i = 1 %}
+                        {% else %}
+                            {% set i = i + 1 %}
+                        {% endif %}
+
+                        {% if i == 1 %}
+                            <div class="img-str">
+                            <div class="img-box first">
+                                <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                                   class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
+                                            src="/images/picture_gray/{{ picture.image }}-gray.jpg"
+                                            id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                            alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
+                            </div>
+                        {% elseif i == 4 %}
+                            <div class="img-box last">
+                                <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                                   class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
+                                            src="/images/picture_gray/{{ picture.image }}-gray.jpg"
+                                            id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                            alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
+                            </div>
+                            </div>
+                        {% else %}
+                            <div class="img-box">
+                                <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                                   class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
+                                            src="/images/picture_gray/{{ picture.image }}-gray.jpg"
+                                            id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                            alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if i != 4 %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <div class="comeback">
+                <a href="{{ path('app_main', {_locale: locale}) }}" title="Вернуться на главную страницу">Вернуться на главную страницу</a>
+            </div>
+        </div>
+    </div>
+
+    {{ include('footer.html.twig') }}
+
+    <?= $scripts; ?>
+{% endblock %}

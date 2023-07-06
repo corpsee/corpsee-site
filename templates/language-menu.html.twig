@@ -1,0 +1,14 @@
+<div class="language-menu">
+    {% set i = 0 %}
+    {% for localeName, localeLink in localeLinks %}
+        {% set i = i + 1 %}
+        {% if locale != localeName %}
+            <a href="{{ localeLink }}">{{ localeName }}</a>
+        {% else %}
+            {{ localeName }}
+        {% endif %}
+        {% if i < localeLinks | length %}
+            &nbsp; | &nbsp;
+        {% endif %}
+    {% endfor %}
+</div>

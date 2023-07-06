@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Запросы на Github{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        {{ include('language-menu.html.twig') }}
+        <div class="wrapper-inner">
+            <div class="comeback">
+                {% for yearValue in years %}
+                    {% if yearValue.year == year %}
+                        <span>{{ yearValue.year }}</span>
+                    {% else %}
+                        <a href="{{ path('app_pull_requests', {_locale: locale, year: yearValue.year}) }}" title="{{ yearValue.year }}">{{ yearValue.year }}</a>
+                    {% endif %}
+                    ({{ yearValue.count }})
+                    {% if yearValue.year != 2013 %}| {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if pullRequests %}
+                <h2>Запросы на Github {% if year %}. {{ year }}{% endif %}</h2>
+
+                <table class="pull-requests">
+                    {% for pullRequest in pullRequests %}
+                        <tr>
+                            <td>
+                                <nobr>
+                                    {{ pullRequest.createdAt | date("Y-m-d") }}
+                                </nobr>
+                            </td>
+                            <td>
+                                <div class="status status-{{ pullRequest.status }}">{{ pullRequest.status }}</div>
+                            </td>
+                            <td width="25%">
+                                {{ pullRequest.repository }}
+                            </td>
+                            <td>
+                                <a href="https://github.com/{{ pullRequest.repository }}/pull/{{ pullRequest.platformId }}">{{ pullRequest.title }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            <div class="comeback">
+                <a href="{{ path('app_main', {_locale: locale}) }}" title="Вернуться на главную страницу">Вернуться на главную страницу</a>
+            </div>
+        </div>
+    </div>
+
+    {{ include('footer.html.twig') }}
+
+    <?= $scripts; ?>
+{% endblock %}
