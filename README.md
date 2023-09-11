@@ -2,7 +2,7 @@
 
 ## Установка
 
-docker-compose up -d  
+docker compose up -d  
 
 symfony console doctrine:migrations:migrate  
 
@@ -16,13 +16,13 @@ symfony server:start -d
 
 ## Запуск
 
-docker-compose up -d  
+docker compose up -d  
 symfony server:start -d  
 
 ## Чистый запуск
 
-docker-compose down --volumes  
-docker-compose up -d --force-recreate --build  
+docker compose down --volumes  
+docker compose up -d --force-recreate --build  
 
 symfony console doctrine:migrations:migrate  
 
@@ -52,7 +52,7 @@ symfony local:php:list
 
 symfony console make:controller MainController
 
-docker-compose up -d
+docker compose up -d
 
 symfony run psql
 symfony run pg_dump --data-only > dump.sql
@@ -67,6 +67,6 @@ symfony composer req "admin:^4"
 symfony console make:admin:dashboard
 symfony console make:admin:crud
 
-docker-compose down --volumes
-docker-compose up -d --force-recreate --build
+docker compose down --volumes
+docker compose up -d --force-recreate --build
 
