@@ -39,8 +39,8 @@ class PicturesController extends AbstractController
         return $this->render('pictures/index.html.twig', [
             'locale'       => $locale,
             'localeLinks'  => [
-                'ru' => $this->generateURL('app_main', ['_locale' => $locale]),
-                'en' => $this->generateURL('app_main', ['_locale' => $locale]),
+                'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
+                'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
             'pictures'     => $picturesByYears,
             'tags'         => $tags,
@@ -72,8 +72,8 @@ class PicturesController extends AbstractController
         return $this->render('pictures/tags.html.twig', [
             'locale'       => $locale,
             'localeLinks'  => [
-                'ru' => $this->generateURL('app_main', ['_locale' => $locale]),
-                'en' => $this->generateURL('app_main', ['_locale' => $locale]),
+                'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
+                'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
             'tags'         => $tags,
             'tagsOrdered'  => $tagOrdered,
@@ -106,8 +106,8 @@ class PicturesController extends AbstractController
         return $this->render('pictures/tag.html.twig', [
             'locale'       => $locale,
             'localeLinks'  => [
-                'ru' => $this->generateURL('app_main', ['_locale' => $locale]),
-                'en' => $this->generateURL('app_main', ['_locale' => $locale]),
+                'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
+                'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
             'tag'          => $tag,
             'pictures'     => $tagEntity->getPictures(),

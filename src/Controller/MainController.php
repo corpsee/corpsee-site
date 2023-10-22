@@ -35,8 +35,8 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig', [
             'locale'       => $locale,
             'localeLinks'  => [
-                'ru' => $this->generateURL('app_main', ['_locale' => $locale]),
-                'en' => $this->generateURL('app_main', ['_locale' => $locale]),
+                'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
+                'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
             'pullRequests' => $this->pullRequestRepository->findLast(5),
             'projects'     => $this->projectRepository->findAll(),

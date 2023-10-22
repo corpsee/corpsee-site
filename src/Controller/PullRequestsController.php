@@ -31,8 +31,8 @@ class PullRequestsController extends AbstractController
         return $this->render('pull_requests/index.html.twig', [
             'locale'       => $locale,
             'localeLinks'  => [
-                'ru' => $this->generateURL('app_pull_requests', ['_locale' => $locale, 'year' => $year]),
-                'en' => $this->generateURL('app_pull_requests', ['_locale' => $locale, 'year' => $year]),
+                'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
+                'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
             'year'         => $year,
             'years'        => $this->pullRequestRepository->findPullRequestYears(),
