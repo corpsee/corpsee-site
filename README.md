@@ -14,10 +14,12 @@ symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pict
 symfony server:ca:install  
 symfony server:start -d  
 
+
 ## Запуск
 
 docker compose up -d  
 symfony server:start -d  
+
 
 ## Чистый запуск
 
@@ -33,9 +35,7 @@ symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pict
 symfony server:start -d  
 
 
-
-
-
+## Other
 
 symfony new guestbook --version=6.2 --php=8.1 --webapp --docker
 
