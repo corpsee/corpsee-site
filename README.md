@@ -7,9 +7,9 @@ docker compose up -d
 symfony console doctrine:migrations:migrate  
 
 Импорт данных:  
-symfony console app:import-pull-requests -v pull_requests.csv  
-symfony console app:import-projects -v projects.csv  
-symfony console app:import-pictures -v pictures.csv tags.csv pictures_tags.csv  
+symfony console app:import-pull-requests -v data/pull_requests.csv  
+symfony console app:import-projects -v data/projects.csv  
+symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv  
 
 symfony server:ca:install  
 symfony server:start -d  
@@ -26,9 +26,9 @@ docker compose up -d --force-recreate --build
 
 symfony console doctrine:migrations:migrate  
 
-symfony console app:import-pull-requests -v pull_requests.csv  
-symfony console app:import-projects -v projects.csv  
-symfony console app:import-pictures -v pictures.csv tags.csv pictures_tags.csv  
+symfony console app:import-pull-requests -v data/pull_requests.csv  
+symfony console app:import-projects -v data/projects.csv  
+symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv  
 
 symfony server:start -d  
 
