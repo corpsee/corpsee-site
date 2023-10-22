@@ -24,7 +24,7 @@ final class Version20230722091336 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE project_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE pull_request_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE tag_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE picture (id INT NOT NULL, title TEXT NOT NULL, image VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, drawn_year INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, drawn_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE picture (id INT NOT NULL, title TEXT NOT NULL, image VARCHAR(255) NOT NULL, image_min VARCHAR(255) NOT NULL, image_gray VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, drawn_year INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, drawn_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_16DB4F892B36786B ON picture (title)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_16DB4F89C53D045F ON picture (image)');
         $this->addSql('COMMENT ON COLUMN picture.created_at IS \'(DC2Type:datetime_immutable)\'');

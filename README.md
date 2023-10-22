@@ -34,8 +34,16 @@ symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pict
 
 symfony server:start -d  
 
+## Сборка frontend-а
+
+symfony run npm run dev
+
+symfony run -d npm run watch
 
 ## Other
+
+https://symfony.com/bundles/EasyAdminBundle/current/crud.html
+
 
 symfony new guestbook --version=6.2 --php=8.1 --webapp --docker
 

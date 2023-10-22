@@ -2,7 +2,7 @@ $(document).ready (function() {
 	$('.img-box').mouseover(function () {
 
 		var img = $(this).find('.gr-col');
-		var ss  = '/images/picture_min/' + img.attr('id') + '-min.jpg';
+		var ss  = '/images/picture_min/' + img.attr('data-min');
 
 		$(this).css('background-color', 'black');
 		img.attr('src', ss);
@@ -10,7 +10,7 @@ $(document).ready (function() {
 	$('.img-box').mouseout(function () {
 
 		var img = $(this).find('.gr-col');
-		var ss  = '/images/picture_gray/' + img.attr('id') + '-gray.jpg';
+		var ss  = '/images/picture_gray/' + img.attr('data-gray');
 
 		$(this).css('background-color', 'transparent');
 		img.attr('src', ss);

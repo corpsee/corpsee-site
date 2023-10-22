@@ -102,6 +102,8 @@ class ImportPicturesCommand extends Command
             $pictures[$data['id']]
                 ->setTitle($data['title'])
                 ->setImage($data['image'] . '.jpg')
+                ->setImageMin($data['image'] . '-min.jpg')
+                ->setImageGray($data['image'] . '-gray.jpg')
                 ->setDescription($data['description'])
                 ->setDrawnAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['create_date']))
                 ;

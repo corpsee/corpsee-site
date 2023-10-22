@@ -26,27 +26,27 @@
                     {% if i == 1 %}
                         <div class="img-str">
                         <div class="img-box first">
-                            <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                            <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}"
                                class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
-                                        src="/images/picture_gray/{{ picture.image }}-gray.jpg"
-                                        id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                        src="/images/picture_gray/{{ picture.imageGray }}"
+                                        id="{{ picture.image }}" data-min="{{ picture.imageMin }}" data-gray="{{ picture.imageGray }}" width="200" height="90" class="gr-col"
                                         alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
                         </div>
                     {% elseif i == 4 %}
                         <div class="img-box last">
-                            <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                            <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}"
                                class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
-                                        src="/images/picture_gray/{{ picture.image }}-gray.jpg"
-                                        id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                        src="/images/picture_gray/{{ picture.imageGray }}"
+                                        id="{{ picture.image }}" data-min="{{ picture.imageMin }}" data-gray="{{ picture.imageGray }}" width="200" height="90" class="gr-col"
                                         alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
                         </div>
                         </div>
                     {% else %}
                         <div class="img-box">
-                            <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}.jpg"
+                            <a rel="lightbox[gallery]" href="/images/picture/{{ picture.image }}"
                                class="pirobox_gr" title="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"><img
-                                        src="/images/picture_gray/{{ picture.image }}-gray.jpg"
-                                        id="{{ picture.image }}" width="200" height="90" class="gr-col"
+                                        src="/images/picture_gray/{{ picture.imageGray }}"
+                                        id="{{ picture.image }}" data-min="{{ picture.imageMin }}" data-gray="{{ picture.imageGray }}" width="200" height="90" class="gr-col"
                                         alt="«{{ picture.title }}» / {{ picture.drawnAt | date('Y-m-d') }}"/></a>
                         </div>
                     {% endif %}

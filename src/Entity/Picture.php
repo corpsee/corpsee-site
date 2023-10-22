@@ -27,6 +27,12 @@ class Picture
     #[ORM\Column(unique: true)]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?string $imageMin = null;
+
+    #[ORM\Column]
+    private ?string $imageGray = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -89,6 +95,30 @@ class Picture
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImageMin(): ?string
+    {
+        return $this->imageMin;
+    }
+
+    public function setImageMin(string $imageMin): static
+    {
+        $this->imageMin = $imageMin;
+
+        return $this;
+    }
+
+    public function getImageGray(): ?string
+    {
+        return $this->imageGray;
+    }
+
+    public function setImageGray(string $imageGray): static
+    {
+        $this->imageGray = $imageGray;
 
         return $this;
     }
