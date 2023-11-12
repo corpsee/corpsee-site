@@ -11,9 +11,13 @@ symfony console app:import-pull-requests -v data/pull_requests.csv
 symfony console app:import-projects -v data/projects.csv  
 symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv  
 
-symfony server:ca:install  
-symfony server:start -d  
+Пароль (admin/admin):
+```sql
+symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES (nextval('admin_id_seq'), 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
+```
 
+symfony server:ca:install  
+symfony server:start -d
 
 ## Запуск
 
@@ -31,6 +35,11 @@ symfony console doctrine:migrations:migrate
 symfony console app:import-pull-requests -v data/pull_requests.csv  
 symfony console app:import-projects -v data/projects.csv  
 symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv  
+
+Пароль (admin/admin):
+```sql
+symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES (nextval('admin_id_seq'), 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
+```
 
 symfony server:start -d  
 
