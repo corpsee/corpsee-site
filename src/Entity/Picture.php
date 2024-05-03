@@ -18,32 +18,32 @@ class Picture
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(unique: true)]
+    private int $id;
 
     #[ORM\Column(type: Types::TEXT, unique: true)]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\Column(unique: true)]
-    private ?string $image = null;
+    private string $image;
 
     #[ORM\Column]
-    private ?string $imageMin = null;
+    private string $imageMin;
 
     #[ORM\Column]
-    private ?string $imageGray = null;
+    private string $imageGray;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $drawnYear = null;
+    private int $drawnYear;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private \DateTimeImmutable $updatedAt;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $drawnAt = null;
@@ -59,23 +59,25 @@ class Picture
 
         $currentDateTime = new \DateTimeImmutable();
 
-        $this->createdAt = $createdAt;
         if (!$createdAt) {
             $this->createdAt = $currentDateTime;
+        } else {
+            $this->createdAt = $createdAt;
         }
 
-        $this->updatedAt = $updatedAt;
         if (!$updatedAt) {
             $this->updatedAt = $currentDateTime;
+        } else {
+            $this->updatedAt = $updatedAt;
         }
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -87,7 +89,7 @@ class Picture
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string
     {
         return $this->image;
     }
@@ -99,7 +101,7 @@ class Picture
         return $this;
     }
 
-    public function getImageMin(): ?string
+    public function getImageMin(): string
     {
         return $this->imageMin;
     }
@@ -111,7 +113,7 @@ class Picture
         return $this;
     }
 
-    public function getImageGray(): ?string
+    public function getImageGray(): string
     {
         return $this->imageGray;
     }
@@ -135,12 +137,12 @@ class Picture
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
     }

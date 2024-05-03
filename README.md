@@ -2,7 +2,7 @@
 
 Движок сайта [corpsee.com](https://corpsee.com).
 
-## Установка (чистый запуск)
+## Установка (или переустановка/чистый запуск)
 
 ```shell
 docker compose down --volumes

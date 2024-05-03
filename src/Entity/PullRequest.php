@@ -21,26 +21,26 @@ class PullRequest
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(unique: true)]
+    private int $id;
 
     #[ORM\Column(length: 100)]
-    private ?string $platform = null;
+    private string $platform;
 
     #[ORM\Column]
-    private ?string $repository = null;
+    private string $repository;
 
     #[ORM\Column(length: 100)]
-    private ?string $platformId = null;
+    private string $platformId;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $body = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $status = null;
+    private string $status;
 
     #[ORM\Column(nullable: true)]
     private ?int $commits = null;
@@ -55,13 +55,13 @@ class PullRequest
     private ?int $files = null;
 
     #[ORM\Column]
-    private ?int $createdYear = null;
+    private int $createdYear;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private \DateTimeImmutable $updatedAt;
 
     public function __construct(
         ?\DateTimeInterface $createdAt = null,
@@ -69,25 +69,27 @@ class PullRequest
     ) {
         $currentDateTime = new \DateTimeImmutable();
 
-        $this->createdAt = $createdAt;
         if (!$createdAt) {
             $this->createdAt = $currentDateTime;
+        } else {
+            $this->createdAt = $createdAt;
         }
 
-        $this->updatedAt = $updatedAt;
         if (!$updatedAt) {
             $this->updatedAt = $currentDateTime;
+        } else {
+            $this->updatedAt = $updatedAt;
         }
 
         $this->createdYear = (int)$this->createdAt->format('Y');
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getPlatform(): ?string
+    public function getPlatform(): string
     {
         return $this->platform;
     }
@@ -99,7 +101,7 @@ class PullRequest
         return $this;
     }
 
-    public function getRepository(): ?string
+    public function getRepository(): string
     {
         return $this->repository;
     }
@@ -111,7 +113,7 @@ class PullRequest
         return $this;
     }
 
-    public function getPlatformId(): ?string
+    public function getPlatformId(): string
     {
         return $this->platformId;
     }
@@ -123,7 +125,7 @@ class PullRequest
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -147,7 +149,7 @@ class PullRequest
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -207,17 +209,17 @@ class PullRequest
         return $this;
     }
 
-    public function getCreatedYear(): ?int
+    public function getCreatedYear(): int
     {
         return $this->createdYear;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
     }

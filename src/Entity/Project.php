@@ -15,11 +15,11 @@ class Project
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(unique: true)]
+    private int $id;
 
     #[ORM\Column(type: Types::TEXT, unique: true)]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -28,22 +28,22 @@ class Project
     private ?string $link = null;
 
     #[ORM\Column]
-    private ?string $role = null;
+    private string $role;
 
     #[ORM\Column(nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $weight = null;
+    private int $weight;
 
     #[ORM\Column]
-    private ?bool $archived = null;
+    private bool $archived;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private \DateTimeImmutable $updatedAt;
 
     public function __construct(
         ?\DateTimeInterface $createdAt = null,
@@ -51,23 +51,25 @@ class Project
     ) {
         $currentDateTime = new \DateTimeImmutable();
 
-        $this->createdAt = $createdAt;
         if (!$createdAt) {
             $this->createdAt = $currentDateTime;
+        } else {
+            $this->createdAt = $createdAt;
         }
 
-        $this->updatedAt = $updatedAt;
         if (!$updatedAt) {
             $this->updatedAt = $currentDateTime;
+        } else {
+            $this->updatedAt = $updatedAt;
         }
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -103,12 +105,12 @@ class Project
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRole(): string
     {
         return $this->role;
     }
 
-    public function setRole(?string $role): static
+    public function setRole(string $role): static
     {
         $this->role = $role;
 
@@ -127,7 +129,7 @@ class Project
         return $this;
     }
 
-    public function getWeight(): ?int
+    public function getWeight(): int
     {
         return $this->weight;
     }
@@ -139,7 +141,7 @@ class Project
         return $this;
     }
 
-    public function isArchived(): ?bool
+    public function isArchived(): bool
     {
         return $this->archived;
     }
@@ -151,12 +153,12 @@ class Project
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
     }

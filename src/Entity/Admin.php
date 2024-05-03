@@ -14,8 +14,8 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(unique: true)]
+    private int $id;
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
@@ -29,7 +29,7 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

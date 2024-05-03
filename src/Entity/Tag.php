@@ -16,17 +16,17 @@ class Tag
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(unique: true)]
+    private int $id;
 
     #[ORM\Column(length: 100, unique: true)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private \DateTimeImmutable $updatedAt;
 
     #[ORM\ManyToMany(targetEntity: Picture::class, mappedBy: 'tags')]
     private Collection $pictures;
@@ -39,23 +39,25 @@ class Tag
 
         $currentDateTime = new \DateTimeImmutable();
 
-        $this->createdAt = $createdAt;
         if (!$createdAt) {
             $this->createdAt = $currentDateTime;
+        } else {
+            $this->createdAt = $createdAt;
         }
 
-        $this->updatedAt = $updatedAt;
         if (!$updatedAt) {
             $this->updatedAt = $currentDateTime;
+        } else {
+            $this->updatedAt = $updatedAt;
         }
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -67,12 +69,12 @@ class Tag
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
     }
