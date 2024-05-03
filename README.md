@@ -1,53 +1,48 @@
 # Corpsee Site
 
-## Установка
+Движок сайта [corpsee.com](https://corpsee.com).
 
-docker compose up -d  
+## Установка (чистый запуск)
 
-symfony console doctrine:migrations:migrate  
+```shell
+docker compose down --volumes
+docker compose up -d --force-recreate --build
+```
+
+```shell
+symfony console doctrine:migrations:migrate
+```
 
 Импорт данных:  
-symfony console app:import-pull-requests -v data/pull_requests.csv  
-symfony console app:import-projects -v data/projects.csv  
-symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv  
+```shell
+symfony console app:import-pull-requests -v data/pull_requests.csv
+symfony console app:import-projects -v data/projects.csv
+symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv
+```
 
 Пароль (admin/admin):
 ```sql
 symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES (nextval('admin_id_seq'), 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
 ```
 
-symfony server:ca:install  
+```shell
+symfony server:ca:install
 symfony server:start -d
+```
 
 ## Запуск
 
-docker compose up -d  
-symfony server:start -d  
-
-
-## Чистый запуск
-
-docker compose down --volumes  
-docker compose up -d --force-recreate --build  
-
-symfony console doctrine:migrations:migrate  
-
-symfony console app:import-pull-requests -v data/pull_requests.csv  
-symfony console app:import-projects -v data/projects.csv  
-symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv  
-
-Пароль (admin/admin):
-```sql
-symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES (nextval('admin_id_seq'), 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
+```shell
+docker compose up -d
+symfony server:start -d
 ```
 
-symfony server:start -d  
+## Сборка frontend-а (dev)
 
-## Сборка frontend-а
-
+```shell
 symfony run npm run dev
-
 symfony run -d npm run watch
+```
 
 ## Other
 
