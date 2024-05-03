@@ -18,7 +18,7 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     private int $id;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $username = null;
+    private string $username;
 
     #[ORM\Column]
     private array $roles = [];
@@ -27,14 +27,14 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
