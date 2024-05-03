@@ -5,7 +5,9 @@
 ## Установка (или переустановка/чистый запуск)
 
 ```shell
+# Остановка приложения с удалением тома
 docker compose down --volumes
+# Запуск контейнеров с пересборкой образов и пересозданием из них контейнеров
 docker compose up -d --force-recreate --build
 ```
 
@@ -22,7 +24,7 @@ symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pict
 
 Пароль (admin/admin):
 ```sql
-symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES (nextval('admin_id_seq'), 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
+symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES ('018f3f30-29a5-7036-940b-64c7ce3fd498', 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
 ```
 
 ```shell
@@ -42,6 +44,12 @@ symfony server:start -d
 ```shell
 symfony run npm run dev
 symfony run -d npm run watch
+```
+
+## Обновление зависимостей
+
+```shell
+symfony composer update "symfony/*"
 ```
 
 ## Other

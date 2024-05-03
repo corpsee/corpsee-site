@@ -7,7 +7,9 @@ namespace App\Entity;
 use App\Repository\PullRequestRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PullRequestRepository::class)]
 #[UniqueEntity(
@@ -20,9 +22,10 @@ class PullRequest
     public const PLATFORM_GITHUB = 'Github';
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(unique: true)]
-    private int $id;
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    private Uuid $id;
 
     #[ORM\Column(length: 100)]
     private string $platform;
@@ -84,7 +87,7 @@ class PullRequest
         $this->createdYear = (int)$this->createdAt->format('Y');
     }
 
-    public function getId(): int
+    public function getId(): Uuid
     {
         return $this->id;
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMigrations;
+namespace migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -16,14 +16,9 @@ final class Version20230722091332 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE SEQUENCE picture_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE project_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE pull_request_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE tag_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-
         $this->addSql('
             CREATE TABLE picture (
-                id INT NOT NULL,
+                id UUID NOT NULL,
                 title TEXT NOT NULL,
                 image VARCHAR(255) NOT NULL,
                 image_min VARCHAR(255) NOT NULL,
@@ -41,7 +36,7 @@ final class Version20230722091332 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE tag (
-                id INT NOT NULL,
+                id UUID NOT NULL,
                 name VARCHAR(100) NOT NULL,
                 created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
@@ -52,8 +47,8 @@ final class Version20230722091332 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE picture_tag (
-                picture_id INT NOT NULL,
-                tag_id INT NOT NULL,
+                picture_id UUID NOT NULL,
+                tag_id UUID NOT NULL,
                 PRIMARY KEY(picture_id, tag_id)
             )
         ');
@@ -65,7 +60,7 @@ final class Version20230722091332 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE project (
-                id INT NOT NULL,
+                id UUID NOT NULL,
                 title TEXT NOT NULL,
                 description TEXT DEFAULT NULL,
                 link VARCHAR(255) DEFAULT NULL,
@@ -82,7 +77,7 @@ final class Version20230722091332 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE pull_request (
-                id INT NOT NULL,
+                id UUID NOT NULL,
                 platform VARCHAR(100) NOT NULL,
                 repository VARCHAR(255) NOT NULL,
                 platform_id VARCHAR(100) NOT NULL,
@@ -103,11 +98,6 @@ final class Version20230722091332 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP SEQUENCE picture_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE project_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE pull_request_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE tag_id_seq CASCADE');
-
         $this->addSql('ALTER TABLE picture_tag DROP CONSTRAINT picture_tag_picture_id_fk');
         $this->addSql('ALTER TABLE picture_tag DROP CONSTRAINT picture_tag_tag_id_fk');
 
