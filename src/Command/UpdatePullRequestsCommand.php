@@ -13,6 +13,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpClient\HttplugClient;
 
 #[AsCommand(
     name: 'app:update-pull-requests',
@@ -20,10 +21,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class UpdatePullRequestsCommand extends Command
 {
+    private readonly Client $githubClient;
+
     public function __construct(
-        private readonly Client $githubClient,
         private readonly PullRequestRepository $pullRequestRepository,
     ) {
+        $this->githubClient = Client::createWithHttpClient(new HttplugClient());
+
         parent::__construct();
     }
 
@@ -36,15 +40,15 @@ class UpdatePullRequestsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->note('Start: ' . \date('Y-m-d H:i:s'));
 
+        $githubUser = 'corpsee';
+
         $repositories = $this->githubClient->api('user');
         $paginator = new ResultPager($this->githubClient);
-        $events = $paginator->fetchAll($repositories, 'publicEvents', ['corpsee']);
-
+        $events = $paginator->fetchAll($repositories, 'publicEvents', [$githubUser]);
         $io->note("\tpublicEvents: " . \sizeof($events));
 
         $pullRequests = [];
         foreach ($events as $event) {
-            dump($event);
             if ('PullRequestEvent' === $event['type']) {
                 $pullRequests[] = $event;
             }
@@ -56,26 +60,28 @@ class UpdatePullRequestsCommand extends Command
         $updated  = 0;
         foreach ($pullRequests as $pullRequest) {
             $repo = \explode('/', $pullRequest['repo']['name']);
-            $data = $this->githubClient->api('pull_request')->show($repo[0], $repo[1], $pullRequest['payload']['number']);
+            /** @var \Github\Api\PullRequest $pullRequestData */
+            $pullRequestData = $this->githubClient->api('pull_request');
+            $data = $pullRequestData->show($repo[0], $repo[1], $pullRequest['payload']['number']);
 
-            if ('corpsee' !== $data['user']['login']) {
+            if ($githubUser !== $data['user']['login']) {
                 continue;
             }
 
-            $pullRequestFromStorage = $this->pullRequestRepository->findOneBy([
+            $pullRequestEntity = $this->pullRequestRepository->findOneBy([
                 'repository' => $pullRequest['repo']['name'],
                 'platformId' => $pullRequest['payload']['number'],
             ]);
 
-            if (null === $pullRequestFromStorage) {
-                $entity = new PullRequest(
-                    \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['created_at']),
-                    \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['created_at'])
+            if (null === $pullRequestEntity) {
+                $pullRequestEntity = new PullRequest(
+                    \DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])),
+                    \DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])),
                 );
-                $entity
+                $pullRequestEntity
                     ->setPlatform(PullRequest::PLATFORM_GITHUB)
                     ->setRepository($pullRequest['repo']['name'])
-                    ->setPlatformId($pullRequest['payload']['number'])
+                    ->setPlatformId((string)$pullRequest['payload']['number'])
                     ->setTitle($data['title'])
                     ->setBody($data['body'])
                     ->setStatus((true === (boolean)$data['merged']) ? 'merged' : $data['state'])
@@ -85,21 +91,14 @@ class UpdatePullRequestsCommand extends Command
                     ->setFiles((int)$data['changed_files'])
                 ;
 
-                $this->pullRequestRepository->save($entity, true);
+                $this->pullRequestRepository->save($pullRequestEntity, true);
 
                 $io->note(
                     "\tPull request {$pullRequest['repo']['name']}/{$pullRequest['payload']['number']} inserted"
                 );
                 $inserted++;
             } else {
-                $entity = new PullRequest(
-                    \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['created_at']),
-                    \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['created_at'])
-                );
-                $entity
-                    ->setPlatform(PullRequest::PLATFORM_GITHUB)
-                    ->setRepository($pullRequest['repo']['name'])
-                    ->setPlatformId($pullRequest['payload']['number'])
+                $pullRequestEntity
                     ->setTitle($data['title'])
                     ->setBody($data['body'])
                     ->setStatus((true === (boolean)$data['merged']) ? 'merged' : $data['state'])
@@ -109,7 +108,7 @@ class UpdatePullRequestsCommand extends Command
                     ->setFiles((int)$data['changed_files'])
                 ;
 
-                $this->pullRequestRepository->save($entity, true);
+                $this->pullRequestRepository->save($pullRequestEntity, true);
 
                 $io->note(
                     "\tPull request {$pullRequest['repo']['name']}/{$pullRequest['payload']['number']} updated"
