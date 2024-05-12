@@ -31,7 +31,7 @@ class PictureCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Picture')
             ->setEntityLabelInPlural('Pictures')
-            ->setSearchFields(['title', 'drawnAt'])
+            ->setSearchFields(['title'])
             ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
@@ -47,16 +47,16 @@ class PictureCrudController extends AbstractCrudController
             ->hideOnIndex();
         yield ImageField::new('image')
             ->setUploadDir('public/images/picture/')
-            ->setBasePath('/images/picture/')
-            ->setUploadedFileNamePattern('[contenthash].[extension]');
+            ->setBasePath('/images/picture/');
+            //->setUploadedFileNamePattern('[contenthash].[extension]');
         yield ImageField::new('imageMin')
             ->setUploadDir('public/images/picture_min/')
-            ->setBasePath('/images/picture_min/')
-            ->setUploadedFileNamePattern('[contenthash].[extension]');
+            ->setBasePath('/images/picture_min/');
+            //->setUploadedFileNamePattern('[contenthash].[extension]');
         yield ImageField::new('imageGray')
             ->setUploadDir('public/images/picture_gray/')
-            ->setBasePath('/images/picture_gray/')
-            ->setUploadedFileNamePattern('[contenthash].[extension]');
+            ->setBasePath('/images/picture_gray/');
+            //->setUploadedFileNamePattern('[contenthash].[extension]');
         yield DateField::new('drawnAt');
         yield AssociationField::new('tags');
     }

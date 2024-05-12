@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -32,7 +33,7 @@ class PullRequestCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Pull Request')
             ->setEntityLabelInPlural('Pull Requests')
             ->setSearchFields(['platform','repository', 'title'])
-            ->setDefaultSort(['createdAt' => 'DESC']);
+            ->setDefaultSort(['originalCreatedAt' => 'DESC']);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -54,5 +55,6 @@ class PullRequestCrudController extends AbstractCrudController
         yield IntegerField::new('additions');
         yield IntegerField::new('deletions');
         yield IntegerField::new('files');
+        yield DateTimeField::new('originalCreatedAt');
     }
 }

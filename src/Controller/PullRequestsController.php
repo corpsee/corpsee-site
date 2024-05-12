@@ -22,11 +22,11 @@ class PullRequestsController extends AbstractController
     {
         $locale = $request->getLocale();
 
-        if (null === $year) {
-            $year = (integer)date('Y');
-        }
+        $pullRequestYears = $this->pullRequestRepository->findPullRequestYears();
 
-        dump($this->pullRequestRepository->findPullRequestYears());
+        if (null === $year) {
+            $year = $pullRequestYears[0]['year'];
+        }
 
         return $this->render('pull_requests/index.html.twig', [
             'locale'       => $locale,
@@ -35,7 +35,7 @@ class PullRequestsController extends AbstractController
                 'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
             'year'         => $year,
-            'years'        => $this->pullRequestRepository->findPullRequestYears(),
+            'years'        => $pullRequestYears,
             'pullRequests' => $this->pullRequestRepository->findByYear($year),
         ]);
     }

@@ -61,6 +61,9 @@ class PullRequest
     private int $createdYear;
 
     #[ORM\Column]
+    private \DateTimeImmutable $originalCreatedAt;
+
+    #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
@@ -215,6 +218,18 @@ class PullRequest
     public function getCreatedYear(): int
     {
         return $this->createdYear;
+    }
+
+    public function setOriginalCreatedAt(\DateTimeImmutable $originalCreatedAt): static
+    {
+        $this->originalCreatedAt = $originalCreatedAt;
+
+        return $this;
+    }
+
+    public function getOriginalCreatedAt(): \DateTimeImmutable
+    {
+        return $this->originalCreatedAt;
     }
 
     public function getCreatedAt(): \DateTimeImmutable

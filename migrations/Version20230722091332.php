@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace migrations;
+namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -89,6 +89,7 @@ final class Version20230722091332 extends AbstractMigration
                 deletions INT DEFAULT NULL,
                 files INT DEFAULT NULL,
                 created_year INT NOT NULL,
+                original_created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 PRIMARY KEY(id)

@@ -35,7 +35,7 @@ class ProjectCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Project')
             ->setEntityLabelInPlural('Projects')
-            ->setSearchFields(['title', 'role'])
+            ->setSearchFields(['title'])
             ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
@@ -53,7 +53,8 @@ class ProjectCrudController extends AbstractCrudController
         yield ChoiceField::new('role')
             ->setChoices(['Developer' => 'Developer', 'Contributor' => 'Contributor']);
         yield ImageField::new('image')
-            ->setUploadDir('public/images/project/');
+            ->setUploadDir('public/images/project/')
+            ->setBasePath('/images/project/');
         yield IntegerField::new('weight');
         yield BooleanField::new('archived');
      }

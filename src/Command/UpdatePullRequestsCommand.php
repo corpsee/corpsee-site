@@ -74,10 +74,7 @@ class UpdatePullRequestsCommand extends Command
             ]);
 
             if (null === $pullRequestEntity) {
-                $pullRequestEntity = new PullRequest(
-                    \DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])),
-                    \DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])),
-                );
+                $pullRequestEntity = new PullRequest();
                 $pullRequestEntity
                     ->setPlatform(PullRequest::PLATFORM_GITHUB)
                     ->setRepository($pullRequest['repo']['name'])
@@ -89,6 +86,7 @@ class UpdatePullRequestsCommand extends Command
                     ->setAdditions((int)$data['additions'])
                     ->setDeletions((int)$data['deletions'])
                     ->setFiles((int)$data['changed_files'])
+                    ->setOriginalCreatedAt(\DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])))
                 ;
 
                 $this->pullRequestRepository->save($pullRequestEntity, true);
