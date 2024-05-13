@@ -80,7 +80,7 @@ final class Version20230722091332 extends AbstractMigration
                 id UUID NOT NULL,
                 platform VARCHAR(100) NOT NULL,
                 repository VARCHAR(255) NOT NULL,
-                platform_id VARCHAR(100) NOT NULL,
+                external_id VARCHAR(100) NOT NULL,
                 title TEXT NOT NULL,
                 body TEXT DEFAULT NULL,
                 status VARCHAR(100) NOT NULL,
@@ -89,7 +89,7 @@ final class Version20230722091332 extends AbstractMigration
                 deletions INT DEFAULT NULL,
                 files INT DEFAULT NULL,
                 created_year INT NOT NULL,
-                original_created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+                external_created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
                 PRIMARY KEY(id)

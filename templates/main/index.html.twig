@@ -115,7 +115,7 @@
                                 {{ pullRequest.repository }}
                             </td>
                             <td>
-                                <a href="https://github.com/{{ pullRequest.repository }}/pull/{{ pullRequest.platformId }}">{{ pullRequest.title }}</a>
+                                <a href="https://github.com/{{ pullRequest.repository }}/pull/{{ pullRequest.externalId }}">{{ pullRequest.title }}</a>
                             </td>
                         </tr>
                     {% endfor %}

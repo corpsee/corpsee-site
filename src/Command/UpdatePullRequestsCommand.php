@@ -70,7 +70,7 @@ class UpdatePullRequestsCommand extends Command
 
             $pullRequestEntity = $this->pullRequestRepository->findOneBy([
                 'repository' => $pullRequest['repo']['name'],
-                'platformId' => $pullRequest['payload']['number'],
+                'externalId' => $pullRequest['payload']['number'],
             ]);
 
             if (null === $pullRequestEntity) {
@@ -78,7 +78,7 @@ class UpdatePullRequestsCommand extends Command
                 $pullRequestEntity
                     ->setPlatform(PullRequest::PLATFORM_GITHUB)
                     ->setRepository($pullRequest['repo']['name'])
-                    ->setPlatformId((string)$pullRequest['payload']['number'])
+                    ->setExternalId((string)$pullRequest['payload']['number'])
                     ->setTitle($data['title'])
                     ->setBody($data['body'])
                     ->setStatus((true === (boolean)$data['merged']) ? 'merged' : $data['state'])
@@ -86,7 +86,7 @@ class UpdatePullRequestsCommand extends Command
                     ->setAdditions((int)$data['additions'])
                     ->setDeletions((int)$data['deletions'])
                     ->setFiles((int)$data['changed_files'])
-                    ->setOriginalCreatedAt(\DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])))
+                    ->setExternalCreatedAt(\DateTimeImmutable::createFromFormat('U', (string)\strtotime($data['created_at'])))
                 ;
 
                 $this->pullRequestRepository->save($pullRequestEntity, true);

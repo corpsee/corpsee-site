@@ -68,7 +68,7 @@ class ImportPullRequestsCommand extends Command
             $entity
                 ->setPlatform(PullRequest::PLATFORM_GITHUB)
                 ->setRepository($data['repository'])
-                ->setPlatformId($data['number'])
+                ->setExternalId($data['number'])
                 ->setTitle($data['title'])
                 ->setBody($data['body'])
                 ->setStatus($data['status'])
@@ -76,7 +76,7 @@ class ImportPullRequestsCommand extends Command
                 ->setAdditions((int)$data['additions'])
                 ->setDeletions((int)$data['deletions'])
                 ->setFiles((int)$data['files'])
-                ->setOriginalCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['create_date']))
+                ->setExternalCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['create_date']))
                 ;
 
             $this->repository->save($entity, true);

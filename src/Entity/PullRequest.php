@@ -13,9 +13,9 @@ use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PullRequestRepository::class)]
 #[UniqueEntity(
-    fields: ['platform', 'platform_id'],
-    message: 'This platform_id is already in use on that platform.',
-    errorPath: 'platform_id',
+    fields: ['platform', 'external_id'],
+    message: 'This external_id is already in use on that platform.',
+    errorPath: 'external_id',
 )]
 class PullRequest
 {
@@ -34,7 +34,7 @@ class PullRequest
     private string $repository;
 
     #[ORM\Column(length: 100)]
-    private string $platformId;
+    private string $externalId;
 
     #[ORM\Column(type: Types::TEXT)]
     private string $title;
@@ -61,7 +61,7 @@ class PullRequest
     private int $createdYear;
 
     #[ORM\Column]
-    private \DateTimeImmutable $originalCreatedAt;
+    private \DateTimeImmutable $externalCreatedAt;
 
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
@@ -119,14 +119,14 @@ class PullRequest
         return $this;
     }
 
-    public function getPlatformId(): string
+    public function getExternalId(): string
     {
-        return $this->platformId;
+        return $this->externalId;
     }
 
-    public function setPlatformId(string $platformId): static
+    public function setExternalId(string $externalId): static
     {
-        $this->platformId = $platformId;
+        $this->externalId = $externalId;
 
         return $this;
     }
@@ -220,16 +220,16 @@ class PullRequest
         return $this->createdYear;
     }
 
-    public function setOriginalCreatedAt(\DateTimeImmutable $originalCreatedAt): static
+    public function setExternalCreatedAt(\DateTimeImmutable $externalCreatedAt): static
     {
-        $this->originalCreatedAt = $originalCreatedAt;
+        $this->externalCreatedAt = $externalCreatedAt;
 
         return $this;
     }
 
-    public function getOriginalCreatedAt(): \DateTimeImmutable
+    public function getExternalCreatedAt(): \DateTimeImmutable
     {
-        return $this->originalCreatedAt;
+        return $this->externalCreatedAt;
     }
 
     public function getCreatedAt(): \DateTimeImmutable

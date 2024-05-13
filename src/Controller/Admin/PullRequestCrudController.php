@@ -33,7 +33,7 @@ class PullRequestCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Pull Request')
             ->setEntityLabelInPlural('Pull Requests')
             ->setSearchFields(['platform','repository', 'title'])
-            ->setDefaultSort(['originalCreatedAt' => 'DESC']);
+            ->setDefaultSort(['externalCreatedAt' => 'DESC']);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -46,7 +46,7 @@ class PullRequestCrudController extends AbstractCrudController
         yield ChoiceField::new('platform')
             ->setChoices([PullRequest::PLATFORM_GITHUB => PullRequest::PLATFORM_GITHUB]);
         yield TextField::new('repository');
-        yield TextField::new('platformId');
+        yield TextField::new('externalId');
         yield TextField::new('title');
         yield TextareaField::new('body')
             ->hideOnIndex();
@@ -55,6 +55,6 @@ class PullRequestCrudController extends AbstractCrudController
         yield IntegerField::new('additions');
         yield IntegerField::new('deletions');
         yield IntegerField::new('files');
-        yield DateTimeField::new('originalCreatedAt');
+        yield DateTimeField::new('externalCreatedAt');
     }
 }
