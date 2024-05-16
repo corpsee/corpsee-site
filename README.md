@@ -12,7 +12,7 @@ docker compose up -d --force-recreate --build
 ```
 
 ```shell
-symfony console doctrine:migrations:migrate
+symfony console doctrine:migrations:migrate --no-interaction
 ```
 
 Импорт данных:  
