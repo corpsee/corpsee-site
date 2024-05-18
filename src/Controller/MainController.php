@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Helper\FileSize;
 
 class MainController extends AbstractController
 {
@@ -37,6 +38,10 @@ class MainController extends AbstractController
             'localeLinks'  => [
                 'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
                 'en' => $this->generateURL('app_main', ['_locale' => 'en']),
+            ],
+            'total'   => [
+                'time'   => \round((\microtime(true) - BENCHMARK_START_TIME), 5),
+                'memory' => FileSize::humanize(\memory_get_usage() - BENCHMARK_START_MEMORY),
             ],
             'pullRequests' => $this->pullRequestRepository->findLast(5),
             'projects'     => $this->projectRepository->findAll(),

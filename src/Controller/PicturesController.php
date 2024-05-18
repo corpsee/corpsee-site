@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Tag;
+use App\Helper\FileSize;
 use App\Repository\PictureRepository;
 use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +43,10 @@ class PicturesController extends AbstractController
                 'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
                 'en' => $this->generateURL('app_main', ['_locale' => 'en']),
             ],
+            'total'   => [
+                'time'   => \round((\microtime(true) - BENCHMARK_START_TIME), 5),
+                'memory' => FileSize::humanize(\memory_get_usage() - BENCHMARK_START_MEMORY),
+            ],
             'pictures'     => $picturesByYears,
             'tags'         => $tags,
             'tagClasses'   => [
@@ -74,6 +79,10 @@ class PicturesController extends AbstractController
             'localeLinks'  => [
                 'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
                 'en' => $this->generateURL('app_main', ['_locale' => 'en']),
+            ],
+            'total'   => [
+                'time'   => \round((\microtime(true) - BENCHMARK_START_TIME), 5),
+                'memory' => FileSize::humanize(\memory_get_usage() - BENCHMARK_START_MEMORY),
             ],
             'tags'         => $tags,
             'tagsOrdered'  => $tagOrdered,
@@ -108,6 +117,10 @@ class PicturesController extends AbstractController
             'localeLinks'  => [
                 'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
                 'en' => $this->generateURL('app_main', ['_locale' => 'en']),
+            ],
+            'total'   => [
+                'time'   => \round((\microtime(true) - BENCHMARK_START_TIME), 5),
+                'memory' => FileSize::humanize(\memory_get_usage() - BENCHMARK_START_MEMORY),
             ],
             'tag'          => $tag,
             'pictures'     => $tagEntity->getPictures(),

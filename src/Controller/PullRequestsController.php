@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Helper\FileSize;
 use App\Repository\PullRequestRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,10 @@ class PullRequestsController extends AbstractController
             'localeLinks'  => [
                 'ru' => $this->generateURL('app_main', ['_locale' => 'ru']),
                 'en' => $this->generateURL('app_main', ['_locale' => 'en']),
+            ],
+            'total'   => [
+                'time'   => \round((\microtime(true) - BENCHMARK_START_TIME), 5),
+                'memory' => FileSize::humanize(\memory_get_usage() - BENCHMARK_START_MEMORY),
             ],
             'year'         => $year,
             'years'        => $pullRequestYears,
