@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Запросы на Github{% endblock %}
+{% block title %}{{ "requests_title" | trans }}{% endblock %}
 
 {% block body %}
     <div class="wrapper">
@@ -19,7 +19,7 @@
             </div>
 
             {% if pullRequests %}
-                <h2>Запросы на Github {% if year %}. {{ year }}{% endif %}</h2>
+                <h2>{{ "requests_title" | trans }} {% if year %}. {{ year }}{% endif %}</h2>
 
                 <table class="pull-requests">
                     {% for pullRequest in pullRequests %}
@@ -44,7 +44,7 @@
             {% endif %}
 
             <div class="comeback">
-                <a href="{{ path('app_main', {_locale: locale}) }}" title="Вернуться на главную страницу">Вернуться на главную страницу</a>
+                <a href="{{ path('app_main', {_locale: locale}) }}" title="{{ "comeback_link_home" | trans }}">{{ "comeback_link_home" | trans }}</a>
             </div>
         </div>
     </div>

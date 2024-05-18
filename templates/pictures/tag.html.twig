@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Графика по датам{% endblock %}
+{% block title %}{{ "header_gallery_list" | trans }}{% endblock %}
 
 {% block body %}
     <div class="wrapper">
         {{ include('language-menu.html.twig') }}
         <div class="wrapper-inner">
             <div class="sort-menu">
-                Упорядочить галерею: &nbsp;&nbsp;
-                по дате&nbsp;&nbsp; | &nbsp;&nbsp;
-                <a href="{{ path('app_pictures_tags', {_locale: locale}) }}">по меткам</a>
+                {{ "sort_header_gallery" | trans }}: &nbsp;&nbsp;
+                {{ "sort_by_date_gallery" | trans }}&nbsp;&nbsp; | &nbsp;&nbsp;
+                <a href="{{ path('app_pictures_tags', {_locale: locale}) }}">{{ "sort_by_tags_gallery" | trans }}</a>
             </div>
 
-            <h1>Метка {{ tag }}</h1>
+            <h1>{{ "header_gallery_one_tag" | trans({'%tag%': tag}) }}</h1>
 
             {% if pictures %}
                 {% set i = 0 %}
@@ -58,7 +58,7 @@
             {% endif %}
 
             <div class="comeback">
-                <a href="{{ path('app_pictures', {_locale: locale}) }}" title="Вернуться к списку">Вернуться к списку</a>
+                <a href="{{ path('app_pictures', {_locale: locale}) }}" title="{{ "comeback_link_gallery" | trans }}">{{ "comeback_link_gallery" | trans }}</a>
             </div>
         </div>
     </div>

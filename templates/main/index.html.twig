@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Запросы на Github{% endblock %}
+{% block title %}{{ "requests_title" | trans }}{% endblock %}
 
 {% block body %}
     <div class="wrapper">
         {{ include('language-menu.html.twig') }}
         <div class="wrapper-inner">
-            <h1>Corpsee</h1>
-            <p>Меня зовут Дмитрий (AKA Corpsee), я вэб-разработчик (PHP). Участвую в Open Source проектах, иногда рисую.</p>
-            <p>Контакты, по которым со мной можно связаться:</p>
+            {{ "content_bio" | trans | raw }}
             <!-- Icons by Ruslan Stepanov (http://hands-creative.com/icon/). License: CC BY 3.0 (http://creativecommons.org/licenses/by/3.0/)-->
             <div class="social-links">
                 <a href="//github.com/corpsee" title="GitHub">
@@ -32,7 +30,7 @@
             </div>
 
             {% if projects %}
-                <h2>Open source проекты</h2>
+                <h2>{{ "bio_projects_title" | trans }}</h2>
 
                 <table class="projects">
                     {% for project in projects %}
@@ -49,7 +47,7 @@
             {% endif %}
 
             {% if pictures %}
-                <h2>Последняя графика</h2>
+                <h2>{{ "bio_pictures_title" | trans }}</h2>
 
                 {% set i = 0 %}
                 {% for picture in pictures %}
@@ -93,12 +91,12 @@
                 {% endif %}
 
                 <div class="comeback">
-                    <a href="{{ path('app_pictures', {_locale: locale}) }}" title="Посмотреть всю графику">Посмотреть всю графику</a>
+                    <a href="{{ path('app_pictures', {_locale: locale}) }}" title="{{ "pictures_link" | trans }}">{{ "pictures_link" | trans }}</a>
                 </div>
             {% endif %}
 
             {% if pullRequests %}
-                <h2>Последние запросы на Github</h2>
+                <h2>{{ "bio_requests_title" | trans }}</h2>
 
                 <table class="pull-requests">
                     {% for pullRequest in pullRequests %}
@@ -122,7 +120,7 @@
                 </table>
 
                 <div class="comeback">
-                    <a href="{{ path('app_pull_requests', {_locale: locale}) }}" title="Посмотреть все запросы">Посмотреть все запросы</a>
+                    <a href="{{ path('app_pull_requests', {_locale: locale}) }}" title="{{ "requests_link" | trans }}">{{ "requests_link" | trans }}</a>
                 </div>
             {% endif %}
         </div>
