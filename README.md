@@ -95,3 +95,6 @@ symfony console make:admin:crud
 docker compose down --volumes
 docker compose up -d --force-recreate --build
 
+
+mkcert -install
+mkcert -cert-file "corpsee-site.localhost.pem" -key-file "corpsee-site.localhost-key.pem" "corpsee-site.localhost" "www.corpsee-site.localhost"
