@@ -22,9 +22,9 @@ symfony console app:import-projects -v data/projects.csv
 symfony console app:import-pictures -v data/pictures.csv data/tags.csv data/pictures_tags.csv
 
 cd ~/Projects/Personal/corpsee-site
-cp --recursive --no-target-directory "data/images/picture" "public/images/picture"
-cp --recursive --no-target-directory "data/images/picture_gray" "public/images/picture_gray"
-cp --recursive --no-target-directory "data/images/picture_min" "public/images/picture_min"
+cp --recursive --no-target-directory "data/images/picture" "public/files/images/picture"
+cp --recursive --no-target-directory "data/images/picture_gray" "public/files/images/picture_gray"
+cp --recursive --no-target-directory "data/images/picture_min" "public/files/images/picture_min"
 ```
 
 Пароль (admin/admin):
@@ -40,8 +40,7 @@ symfony server:start -d
 ## Запуск
 
 ```shell
-docker compose up -d
-symfony server:start -d
+docker compose up -d && symfony server:start -d
 ```
 
 ## Сборка frontend-а (dev)

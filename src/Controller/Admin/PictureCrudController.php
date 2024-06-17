@@ -46,16 +46,16 @@ class PictureCrudController extends AbstractCrudController
         yield TextareaField::new('description')
             ->hideOnIndex();
         yield ImageField::new('image')
-            ->setUploadDir('public/images/picture/')
-            ->setBasePath('/images/picture/');
+            ->setUploadDir('public/files/images/picture/')
+            ->setBasePath('/files/images/picture/');
             //->setUploadedFileNamePattern('[contenthash].[extension]');
         yield ImageField::new('imageMin')
-            ->setUploadDir('public/images/picture_min/')
-            ->setBasePath('/images/picture_min/');
+            ->setUploadDir('public/files/images/picture_min/')
+            ->setBasePath('/files/images/picture_min/');
             //->setUploadedFileNamePattern('[contenthash].[extension]');
         yield ImageField::new('imageGray')
-            ->setUploadDir('public/images/picture_gray/')
-            ->setBasePath('/images/picture_gray/');
+            ->setUploadDir('public/files/images/picture_gray/')
+            ->setBasePath('/files/images/picture_gray/');
             //->setUploadedFileNamePattern('[contenthash].[extension]');
         yield DateField::new('drawnAt');
         yield AssociationField::new('tags');

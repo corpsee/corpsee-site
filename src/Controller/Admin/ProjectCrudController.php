@@ -53,8 +53,8 @@ class ProjectCrudController extends AbstractCrudController
         yield ChoiceField::new('role')
             ->setChoices(['Developer' => 'Developer', 'Contributor' => 'Contributor']);
         yield ImageField::new('image')
-            ->setUploadDir('public/images/project/')
-            ->setBasePath('/images/project/');
+            ->setUploadDir('public/files/images/project/')
+            ->setBasePath('/files/images/project/');
         yield IntegerField::new('weight');
         yield BooleanField::new('archived');
      }
