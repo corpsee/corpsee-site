@@ -553,3 +553,4 @@ Updated version of Codeception (CVE-2021-23420: Deserialization of Untrusted Dat
 ",merged,1,67,69,50,2021-10-14 16:21:40
 181,abstractart/how-to-develop-perfect-crud,14,Added point about git repository force push,Added point about git repository force push,merged,1,1,0,1,2023-02-07 12:00:33
 180,abstractart/how-to-develop-perfect-crud,28,Added security utilities for PHP.,Added security utilities for PHP.,merged,1,1,0,1,2023-02-26 04:20:45
+182,beagreatengineer/how-to-develop-perfect-crud,36,Add JSON-RPC as API variant.,Add JSON-RPC as API variant.,merged,1,2,0,2,2024-01-30 10:36:56
