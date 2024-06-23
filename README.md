@@ -29,6 +29,8 @@ cp --recursive --no-target-directory "data/images/picture_min" "public/files/ima
 
 Пароль (admin/admin):
 ```sql
+# symfony console security:hash-password
+
 symfony run psql -c "INSERT INTO admin (id, username, roles, password) VALUES ('018f3f30-29a5-7036-940b-64c7ce3fd498', 'admin', '[\"ROLE_ADMIN\"]', '\$2y\$13\$goaTn2PMTCvqmi5IdEF40O1mP/1WxXwiY4XgGahoR2yqAwrIPokK.')"
 ```
 
@@ -46,6 +48,8 @@ docker compose up -d && symfony server:start -d
 ## Сборка frontend-а (dev)
 
 ```shell
+npm install
+
 symfony run npm run dev
 symfony run -d npm run watch
 ```
@@ -93,7 +97,3 @@ symfony console make:admin:crud
 
 docker compose down --volumes
 docker compose up -d --force-recreate --build
-
-
-mkcert -install
-mkcert -cert-file "corpsee-site.localhost.pem" -key-file "corpsee-site.localhost-key.pem" "corpsee-site.localhost" "www.corpsee-site.localhost"
