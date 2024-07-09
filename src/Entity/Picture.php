@@ -42,14 +42,17 @@ class Picture
     #[ORM\Column]
     private int $drawnYear;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $createdAt;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $updatedAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $updatedAt;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $drawnAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $deletedAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $drawnAt = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'pictures', cascade: ['persist'])]
     private Collection $tags;
@@ -140,22 +143,32 @@ class Picture
         return $this;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function getDrawnAt(): ?\DateTimeImmutable
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): void
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    public function getDrawnAt(): ?\DateTimeInterface
     {
         return $this->drawnAt;
     }
 
-    public function setDrawnAt(?\DateTimeImmutable $drawnAt): static
+    public function setDrawnAt(?\DateTimeInterface $drawnAt): static
     {
         $this->drawnAt = $drawnAt;
         $this->drawnYear = (int)$this->drawnAt->format('Y');
@@ -168,7 +181,15 @@ class Picture
      */
     public function getTags(): Collection
     {
-        return $this->tags;
+        /** @var Collection<int, Tag> $tags */
+        $tags = new ArrayCollection();
+        foreach ($this->tags as $tag) {
+            if (!$tag->getDeletedAt()) {
+                $tags[] = $tag;
+            }
+        }
+
+        return $tags;
     }
 
     public function addTag(Tag $tag): static
@@ -196,5 +217,10 @@ class Picture
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getDrawnYear(): int
+    {
+        return $this->drawnYear;
     }
 }

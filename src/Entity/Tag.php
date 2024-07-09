@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,11 +26,14 @@ class Tag
     #[ORM\Column(length: 100, unique: true)]
     private string $name;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $createdAt;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $updatedAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $updatedAt;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $deletedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Picture::class, mappedBy: 'tags')]
     private Collection $pictures;
@@ -72,12 +76,12 @@ class Tag
         return $this;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -87,7 +91,15 @@ class Tag
      */
     public function getPictures(): Collection
     {
-        return $this->pictures;
+        /** @var Collection<int, Picture> $pictures */
+        $pictures = new ArrayCollection();
+        foreach ($this->pictures as $picture) {
+            if (!$picture->getDeletedAt()) {
+                $pictures[] = $picture;
+            }
+        }
+
+        return $pictures;
     }
 
     public function addPicture(Picture $picture): static
@@ -118,5 +130,15 @@ class Tag
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): void
+    {
+        $this->deletedAt = $deletedAt;
     }
 }

@@ -23,12 +23,28 @@ class PullRequestRepository extends ServiceEntityRepository
         parent::__construct($registry, PullRequest::class);
     }
 
+    /**
+     * @return PullRequest[]
+     */
+    public function findAllFiltered(): array
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('pictures')
+            ->where('pictures.deletedAt IS NULL')
+        ;
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findPullRequestYears(): array
     {
         $connection = $this->getEntityManager()->getConnection();
         $statement = $connection->prepare('
             SELECT "created_year" AS "year", COUNT(*) AS "count"
                 FROM "pull_request"
+                WHERE "deleted_at" IS NULL
                 GROUP BY "created_year"
                 ORDER BY "created_year" DESC
 '       );
@@ -49,6 +65,7 @@ class PullRequestRepository extends ServiceEntityRepository
         $queryBuilder = $this
             ->createQueryBuilder('pullRequest')
             ->where('pullRequest.createdYear = :year')
+            ->andWhere('pullRequest.deletedAt IS NULL')
             ->orderBy('pullRequest.createdAt', 'DESC')
             ->setParameter('year', $year)
             ;
@@ -67,6 +84,7 @@ class PullRequestRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this
             ->createQueryBuilder('pullRequest')
+            ->where('pullRequest.deletedAt IS NULL')
             ->orderBy('pullRequest.weight', 'DESC')
             ->orderBy('pullRequest.createdAt', 'DESC')
             ->setMaxResults($limit)

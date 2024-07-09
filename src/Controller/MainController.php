@@ -44,7 +44,7 @@ class MainController extends AbstractController
                 'memory' => FileSize::humanize(\memory_get_usage() - BENCHMARK_START_MEMORY),
             ],
             'pullRequests' => $this->pullRequestRepository->findLast(5),
-            'projects'     => $this->projectRepository->findAll(),
+            'projects'     => $this->projectRepository->findAllFiltered(),
             'pictures'     => $this->pictureRepository->findLast(8),
         ]);
     }

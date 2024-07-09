@@ -26,7 +26,7 @@ class PicturesController extends AbstractController
     public function index(Request $request): Response
     {
         $locale = $request->getLocale();
-        $tags   = $this->tagRepository->findAll();
+        $tags   = $this->tagRepository->findAllFiltered();
 
         \shuffle($tags);
 

@@ -23,6 +23,21 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    /**
+     * @return Project[]
+     */
+    public function findAllFiltered(): array
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('pictures')
+            ->where('pictures.deletedAt IS NULL')
+        ;
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
     public function save(Project $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

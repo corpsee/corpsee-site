@@ -56,5 +56,6 @@ class PullRequestCrudController extends AbstractCrudController
         yield IntegerField::new('deletions');
         yield IntegerField::new('files');
         yield DateTimeField::new('externalCreatedAt');
+        yield DateTimeField::new('deletedAt');
     }
 }

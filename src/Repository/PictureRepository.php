@@ -25,6 +25,21 @@ class PictureRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return Picture[]
+     */
+    public function findAllFiltered(): array
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('pictures')
+            ->where('pictures.deletedAt IS NULL')
+        ;
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param int $limit
      * @return Picture[]
      * @throws \Doctrine\DBAL\Exception
@@ -33,6 +48,7 @@ class PictureRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this
             ->createQueryBuilder('picture')
+            ->where('picture.deletedAt IS NULL')
             ->orderBy('picture.drawnAt', 'DESC')
             ->setMaxResults($limit)
         ;
@@ -48,6 +64,7 @@ class PictureRepository extends ServiceEntityRepository
         $statement = $connection->prepare('
             SELECT "drawn_year" AS "year"
                 FROM "picture"
+                WHERE "deleted_at" IS NULL
                 GROUP BY "drawn_year"
                 ORDER BY "drawn_year" DESC
 '       );
@@ -68,6 +85,7 @@ class PictureRepository extends ServiceEntityRepository
         $queryBuilder = $this
             ->createQueryBuilder('pictures')
             ->where('pictures.drawnYear = :year')
+            ->andWhere('pictures.deletedAt IS NULL')
             ->orderBy('pictures.drawnAt', 'DESC')
             ->setParameter('year', $year)
         ;

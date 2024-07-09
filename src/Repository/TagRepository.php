@@ -25,6 +25,21 @@ class TagRepository extends ServiceEntityRepository
 
     /**
      * @return Tag[]
+     */
+    public function findAllFiltered(): array
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('pictures')
+            ->where('pictures.deletedAt IS NULL')
+        ;
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Tag[]
      * @throws \Doctrine\DBAL\Exception
      */
     public function findAllOrdered(): array

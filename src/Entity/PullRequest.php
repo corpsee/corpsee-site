@@ -60,14 +60,17 @@ class PullRequest
     #[ORM\Column]
     private int $createdYear;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $externalCreatedAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $externalCreatedAt;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $createdAt;
 
-    #[ORM\Column]
-    private \DateTimeImmutable $updatedAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private \DateTimeInterface $updatedAt;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $deletedAt = null;
 
     public function __construct(
         ?\DateTimeInterface $createdAt = null,
@@ -220,24 +223,24 @@ class PullRequest
         return $this->createdYear;
     }
 
-    public function setExternalCreatedAt(\DateTimeImmutable $externalCreatedAt): static
+    public function setExternalCreatedAt(\DateTimeInterface $externalCreatedAt): static
     {
         $this->externalCreatedAt = $externalCreatedAt;
 
         return $this;
     }
 
-    public function getExternalCreatedAt(): \DateTimeImmutable
+    public function getExternalCreatedAt(): \DateTimeInterface
     {
         return $this->externalCreatedAt;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTimeImmutable
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -251,5 +254,15 @@ class PullRequest
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): void
+    {
+        $this->deletedAt = $deletedAt;
     }
 }
