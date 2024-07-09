@@ -23,9 +23,12 @@ class MainController extends AbstractController
     }
 
     #[Route('/', name: 'app_main_no_locale')]
-    public function indexNoLocale(): Response
+    public function indexNoLocale(Request $request): Response
     {
-        return $this->redirectToRoute('app_main', ['_locale' => 'en']);
+        $locale = $request->headers->get('accept-language');
+        $locale = \strtolower(\str_split($locale, 2)[0]);
+
+        return $this->redirectToRoute('app_main', ['_locale' => $locale]);
     }
 
     #[Route('/{_locale<%app.supported_locales%>}', name: 'app_main')]
