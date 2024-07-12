@@ -12,6 +12,17 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+    {% if 'prod' = app.environment %}
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_tracking }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '{{ ga_tracking }}');
+        </script>
+    {% endif %}
     <body>
         {% block body %}{% endblock %}
     </body>
