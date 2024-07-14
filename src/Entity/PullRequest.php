@@ -12,10 +12,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PullRequestRepository::class)]
+#[ORM\UniqueConstraint(name: 'pull_request_platform_repository_external_id_uidx', fields: ['platform', 'repository', 'externalId'])]
 #[UniqueEntity(
-    fields: ['platform', 'external_id'],
-    message: 'This external_id is already in use on that platform.',
-    errorPath: 'external_id',
+    fields: ['platform', 'repository', 'externalId'],
+    message: 'This externalId is already in use on that platform and repository.',
+    errorPath: 'externalId',
 )]
 class PullRequest
 {

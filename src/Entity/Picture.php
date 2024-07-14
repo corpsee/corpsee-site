@@ -14,8 +14,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
-#[UniqueEntity('title')]
+#[ORM\UniqueConstraint(name: 'picture_image_uidx', fields: ['image'])]
+#[ORM\UniqueConstraint(name: 'picture_title_uidx', fields: ['title'])]
 #[UniqueEntity('image')]
+#[UniqueEntity('title')]
 class Picture
 {
     #[ORM\Id]
@@ -42,10 +44,10 @@ class Picture
     #[ORM\Column]
     private int $drawnYear;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
     private \DateTimeInterface $createdAt;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
     private \DateTimeInterface $updatedAt;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]

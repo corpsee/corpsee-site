@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ORM\UniqueConstraint(name: 'tag_name_uidx', fields: ['name'])]
 #[UniqueEntity('name')]
 class Tag
 {
