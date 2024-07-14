@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[ORM\UniqueConstraint(name: 'project_title_uidx', fields: ['title'])]
 #[UniqueEntity('title')]
 class Project
 {
