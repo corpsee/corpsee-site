@@ -57,9 +57,15 @@ class PictureCrudController extends AbstractCrudController
             //->setUploadedFileNamePattern('[contenthash].[extension]');
 
         if ($pageName !== 'new') {
-            $imageField->setRequired(false);
-            $imageMinField->setRequired(false);
-            $imageGrayField->setRequired(false);
+            $imageField
+                ->setFormTypeOption('allow_delete', false)
+                ->setRequired(false);
+            $imageMinField
+                ->setFormTypeOption('allow_delete', false)
+                ->setRequired(false);
+            $imageGrayField
+                ->setFormTypeOption('allow_delete', false)
+                ->setRequired(false);
         }
 
         yield TextField::new('title');
