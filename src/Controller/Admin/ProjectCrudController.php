@@ -24,7 +24,7 @@ class ProjectCrudController extends AbstractCrudController
         return Project::class;
     }
 
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): Project
     {
         return (new $entityFqcn())
             ->setWeight(5)

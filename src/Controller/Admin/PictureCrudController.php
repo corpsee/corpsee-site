@@ -22,11 +22,6 @@ class PictureCrudController extends AbstractCrudController
         return Picture::class;
     }
 
-    public function createEntity(string $entityFqcn)
-    {
-        return (new $entityFqcn());
-    }
-
     public function configureCrud(Crud $crud): Crud
     {
         return $crud

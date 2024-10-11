@@ -106,7 +106,7 @@ class PicturesController extends AbstractController
     public function tag(Request $request, string $tag): Response
     {
         $locale = $request->getLocale();
-        /** @var Tag $tagEntity */
+        /** @var Tag|null $tagEntity */
         $tagEntity = $this->tagRepository->findOneBy(['name' => $tag]);
         if (!$tagEntity) {
             throw new NotFoundHttpException(\sprintf('Tag "%s" doesn\'t exist!', $tag));
