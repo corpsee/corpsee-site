@@ -46,15 +46,15 @@ class PictureCrudController extends AbstractCrudController
         $imageField = ImageField::new('image')
             ->setUploadDir('public/files/images/picture/')
             ->setBasePath('/files/images/picture/');
-            //->setUploadedFileNamePattern('[contenthash].[extension]');
+        //->setUploadedFileNamePattern('[contenthash].[extension]');
         $imageMinField = ImageField::new('imageMin')
             ->setUploadDir('public/files/images/picture_min/')
             ->setBasePath('/files/images/picture_min/');
-            //->setUploadedFileNamePattern('[contenthash].[extension]');
+        //->setUploadedFileNamePattern('[contenthash].[extension]');
         $imageGrayField = ImageField::new('imageGray')
             ->setUploadDir('public/files/images/picture_gray/')
             ->setBasePath('/files/images/picture_gray/');
-            //->setUploadedFileNamePattern('[contenthash].[extension]');
+        //->setUploadedFileNamePattern('[contenthash].[extension]');
 
         if ($pageName !== 'new') {
             $imageField

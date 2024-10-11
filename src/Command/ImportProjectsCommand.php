@@ -38,7 +38,7 @@ class ImportProjectsCommand extends Command
         $file = $input->getArgument('file');
 
         if ($file) {
-            $io->note(sprintf('Start import. You passed CSV file: %s', $file));
+            $io->note(\sprintf('Start import. You passed CSV file: %s', $file));
         } else {
             $io->error('No CSV file for import!');
 
@@ -49,8 +49,8 @@ class ImportProjectsCommand extends Command
         $indexes     = [];
         $counter     = 0;
         while ($row = \fgetcsv($fileHandler)) {
-            if (count($indexes) === 0) {
-                $indexes = array_flip($row);
+            if (\count($indexes) === 0) {
+                $indexes = \array_flip($row);
 
                 continue;
             }
@@ -73,7 +73,7 @@ class ImportProjectsCommand extends Command
                 ->setImage(null)
                 ->setWeight((int)$data['order'])
                 ->setArchived(false)
-                ;
+            ;
 
             $this->repository->save($entity, true);
         }

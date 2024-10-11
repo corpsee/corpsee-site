@@ -59,5 +59,5 @@ class ProjectCrudController extends AbstractCrudController
         yield IntegerField::new('weight');
         yield BooleanField::new('archived');
         yield DateTimeField::new('deletedAt');
-     }
+    }
 }

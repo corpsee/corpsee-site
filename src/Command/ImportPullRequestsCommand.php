@@ -38,7 +38,7 @@ class ImportPullRequestsCommand extends Command
         $file = $input->getArgument('file');
 
         if ($file) {
-            $io->note(sprintf('Start import. You passed CSV file: %s', $file));
+            $io->note(\sprintf('Start import. You passed CSV file: %s', $file));
         } else {
             $io->error('No CSV file for import!');
 
@@ -49,8 +49,8 @@ class ImportPullRequestsCommand extends Command
         $indexes     = [];
         $counter     = 0;
         while ($row = \fgetcsv($fileHandler)) {
-            if (count($indexes) === 0) {
-                $indexes = array_flip($row);
+            if (\count($indexes) === 0) {
+                $indexes = \array_flip($row);
 
                 continue;
             }
@@ -77,7 +77,7 @@ class ImportPullRequestsCommand extends Command
                 ->setDeletions((int)$data['deletions'])
                 ->setFiles((int)$data['files'])
                 ->setExternalCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['create_date']))
-                ;
+            ;
 
             $this->repository->save($entity, true);
         }

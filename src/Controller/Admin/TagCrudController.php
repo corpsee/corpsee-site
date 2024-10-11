@@ -43,5 +43,5 @@ class TagCrudController extends AbstractCrudController
         yield TextField::new('name');
         yield AssociationField::new('pictures');
         yield DateTimeField::new('deletedAt');
-     }
+    }
 }

@@ -81,7 +81,7 @@ class UpdatePullRequestsCommand extends Command
                     ->setExternalId((string)$pullRequest['payload']['number'])
                     ->setTitle($data['title'])
                     ->setBody($data['body'])
-                    ->setStatus((true === (boolean)$data['merged']) ? 'merged' : $data['state'])
+                    ->setStatus((true === (bool)$data['merged']) ? 'merged' : $data['state'])
                     ->setCommits((int)$data['commits'])
                     ->setAdditions((int)$data['additions'])
                     ->setDeletions((int)$data['deletions'])
@@ -99,7 +99,7 @@ class UpdatePullRequestsCommand extends Command
                 $pullRequestEntity
                     ->setTitle($data['title'])
                     ->setBody($data['body'])
-                    ->setStatus((true === (boolean)$data['merged']) ? 'merged' : $data['state'])
+                    ->setStatus((true === (bool)$data['merged']) ? 'merged' : $data['state'])
                     ->setCommits((int)$data['commits'])
                     ->setAdditions((int)$data['additions'])
                     ->setDeletions((int)$data['deletions'])

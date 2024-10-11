@@ -47,16 +47,15 @@ class PullRequestRepository extends ServiceEntityRepository
                 WHERE "deleted_at" IS NULL
                 GROUP BY "created_year"
                 ORDER BY "created_year" DESC
-'       );
+');
 
         return $statement
             ->executeQuery()
             ->fetchAllAssociative()
-            ;
+        ;
     }
 
     /**
-     * @param int $year
      * @return PullRequest[]
      * @throws \Doctrine\DBAL\Exception
      */
@@ -68,7 +67,7 @@ class PullRequestRepository extends ServiceEntityRepository
             ->andWhere('pullRequest.deletedAt IS NULL')
             ->orderBy('pullRequest.createdAt', 'DESC')
             ->setParameter('year', $year)
-            ;
+        ;
 
         return $queryBuilder
             ->getQuery()
@@ -76,7 +75,6 @@ class PullRequestRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $limit
      * @return PullRequest[]
      * @throws \Doctrine\DBAL\Exception
      */
