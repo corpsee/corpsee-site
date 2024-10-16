@@ -43,7 +43,7 @@ class ImportPicturesCommand extends Command
         $ptFile = $input->getArgument('picturesTagsFile');
 
         if ($pFile && $tFile && $ptFile) {
-            $io->note(sprintf('Start import. You passed CSV files: %s, %s, %s', $pFile, $tFile, $ptFile));
+            $io->note(\sprintf('Start import. You passed CSV files: %s, %s, %s', $pFile, $tFile, $ptFile));
         } else {
             $io->error('No CSV files for import!');
 
@@ -74,7 +74,7 @@ class ImportPicturesCommand extends Command
             );
             $tags[$data['id']]
                 ->setName($data['tag'])
-                ;
+            ;
         }
 
         $pFileHandler = \fopen($pFile, 'r');
@@ -106,7 +106,7 @@ class ImportPicturesCommand extends Command
                 ->setImageGray($data['image'] . '-gray.jpg')
                 ->setDescription($data['description'])
                 ->setDrawnAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $data['create_date']))
-                ;
+            ;
         }
 
         $ptFileHandler = \fopen($ptFile, 'r');
@@ -127,7 +127,7 @@ class ImportPicturesCommand extends Command
 
             ($pictures[(int)$data['picture_id']])
                 ->addTag($tags[(int)$data['tag_id']])
-                ;
+            ;
         }
 
         foreach ($pictures as $picture) {

@@ -1,6 +1,6 @@
 <?php
 
-
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -40,7 +40,6 @@ class PictureRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $limit
      * @return Picture[]
      * @throws \Doctrine\DBAL\Exception
      */
@@ -67,16 +66,15 @@ class PictureRepository extends ServiceEntityRepository
                 WHERE "deleted_at" IS NULL
                 GROUP BY "drawn_year"
                 ORDER BY "drawn_year" DESC
-'       );
+');
 
         return $statement
             ->executeQuery()
             ->fetchAllAssociative()
-            ;
+        ;
     }
 
     /**
-     * @param int $year
      * @return PullRequest[]
      * @throws \Doctrine\DBAL\Exception
      */

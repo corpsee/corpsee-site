@@ -26,7 +26,7 @@ class FileSize
         if (isset($sizes[$power])) {
             $humanize = \sprintf("%.{$decimals}f", ($bytes / \pow(1024, $power))) . $sizes[$power];
         } else {
-            $humanize = \sprintf("%i", $bytes) . 'B';
+            $humanize = \sprintf("%d", $bytes) . 'B';
         }
 
         return $humanize;

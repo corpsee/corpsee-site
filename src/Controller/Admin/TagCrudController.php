@@ -19,11 +19,6 @@ class TagCrudController extends AbstractCrudController
         return Tag::class;
     }
 
-    public function createEntity(string $entityFqcn)
-    {
-        return (new $entityFqcn());
-    }
-
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -43,5 +38,5 @@ class TagCrudController extends AbstractCrudController
         yield TextField::new('name');
         yield AssociationField::new('pictures');
         yield DateTimeField::new('deletedAt');
-     }
+    }
 }

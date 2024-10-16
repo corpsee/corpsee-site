@@ -21,7 +21,7 @@ class PullRequestCrudController extends AbstractCrudController
         return PullRequest::class;
     }
 
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): PullRequest
     {
         return (new $entityFqcn())
             ->setPlatform(PullRequest::PLATFORM_GITHUB);

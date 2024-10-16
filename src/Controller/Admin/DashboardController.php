@@ -31,7 +31,7 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Corpsee Site')
             //->disableDarkMode()
-            ;
+        ;
     }
 
     public function configureMenuItems(): iterable
