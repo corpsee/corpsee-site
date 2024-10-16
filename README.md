@@ -1,13 +1,13 @@
 # Corpsee Site
 
-Движок сайта [corpsee.com](https://corpsee.com).
+Site [corpsee.com](https://corpsee.com) sources.
 
-## Установка (или переустановка/чистый запуск)
+## Install (clear start)
 
 ```shell
-# Остановка приложения с удалением тома
+# Stop and remove volumes
 docker compose down --volumes
-# Запуск контейнеров с пересборкой образов и пересозданием из них контейнеров
+# Start with build
 docker compose up -d --force-recreate --build
 ```
 
@@ -15,7 +15,7 @@ docker compose up -d --force-recreate --build
 symfony console doctrine:migrations:migrate --no-interaction
 ```
 
-Импорт данных:  
+Data import:  
 ```shell
 symfony console app:import-pull-requests -v data/pull_requests.csv
 symfony console app:import-projects -v data/projects.csv
@@ -27,7 +27,7 @@ cp --recursive --no-target-directory "data/images/picture_gray" "public/files/im
 cp --recursive --no-target-directory "data/images/picture_min" "public/files/images/picture_min"
 ```
 
-Пароль (admin/admin):
+Login/password (admin/admin):
 ```sql
 # symfony console security:hash-password
 
@@ -39,13 +39,13 @@ symfony server:ca:install
 symfony server:start -d
 ```
 
-## Запуск
+## Start
 
 ```shell
 docker compose up -d && symfony server:start -d
 ```
 
-## Сборка frontend-а (dev)
+## Frontend build (dev)
 
 ```shell
 npm install
@@ -54,46 +54,8 @@ symfony run npm run dev
 symfony run -d npm run watch
 ```
 
-## Обновление зависимостей
+## Dependencies update
 
 ```shell
 symfony composer update "symfony/*"
 ```
-
-## Other
-
-https://symfony.com/bundles/EasyAdminBundle/current/crud.html
-
-
-symfony new guestbook --version=6.2 --php=8.1 --webapp --docker
-
-symfony server:ca:install
-
-symfony server:start -d
-symfony server:stop
-
-symfony open:local
-
-symfony server:log
-
-symfony local:php:list
-
-symfony console make:controller MainController
-
-docker compose up -d
-
-symfony run psql
-symfony run pg_dump --data-only > dump.sql
-symfony run psql < dump.sql
-
-symfony var:export
-
-symfony console make:migration
-symfony console doctrine:migrations:migrate
-
-symfony composer req "admin:^4"
-symfony console make:admin:dashboard
-symfony console make:admin:crud
-
-docker compose down --volumes
-docker compose up -d --force-recreate --build
