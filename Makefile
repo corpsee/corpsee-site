@@ -22,15 +22,17 @@ test: php-info install ## Run PHPUnit tests
 test-coverage: php-info install ## Run PHPUnit tests with coverage report
 	$(PHP) vendor/bin/phpunit --configuration=phpunit.xml.dist --verbose --coverage-text --coverage-html=tests/var/coverage
 
-#mutation-test: php-info install ## Run Infection mutation tests
-#	$(PHP) vendor/bin/infection --threads=4 --show-mutations -vvv
+mutation-test: php-info install ## Run Infection mutation tests
+	$(PHP) vendor/bin/infection --threads=4 --show-mutations -vvv
 
 code-style-fix: php-info install ## Fix code style
 	$(PHP) vendor/bin/php-cs-fixer fix --allow-risky=yes --diff
 
-#psalm: php-info install ## Run Psalm check
-#	$(PHP) vendor/bin/psalm --config=psalm.xml.dist --threads=4 --show-snippet=true --show-info=true
+psalm: php-info install ## Run Psalm check
+	$(PHP) vendor/bin/psalm --config=psalm.xml.dist --threads=4 --show-snippet=true --show-info=true
 
-#.PHONY: php-info list install install-force update test test-coverage mutation-test code-style-fix psalm
-.PHONY: php-info list install install-force update test test-coverage code-style-fix
+phpstan: php-info install ## Run PHPStan check
+	$(PHP) vendor/bin/phpstan analyse
+
+.PHONY: php-info list install install-force update test test-coverage mutation-test code-style-fix psalm
 .DEFAULT_GOAL := list
